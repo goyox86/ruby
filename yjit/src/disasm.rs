@@ -149,6 +149,14 @@ pub fn disasm_addr_range(cb: &CodeBlock, start_addr: usize, end_addr: usize) -> 
         .detail(true)
         .build()
         .unwrap();
+
+    #[cfg(target_arch = "riscv64")]
+    let mut cs = Capstone::new()
+        .riscv()
+        .mode(arch::riscv::ArchMode::RiscV64)
+        .detail(true)
+        .build()
+        .unwrap();
     cs.set_skipdata(true).unwrap();
 
     // Disassemble the instructions
